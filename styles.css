@@ -40,8 +40,7 @@ body {
   padding: 0.8rem 1rem;
   color: #828282;
   text-align: center;
-  cursor: grab;
-
+  cursor: grab;  
 }
 
 .item:active {
@@ -58,7 +57,13 @@ body {
 
 .placeholder {
   width: 150px;
-  height: 66px;
+  height: 66px; 
+  position: relative;
+}
+
+.slidedown {
+  position: absolute;
+  bottom: -65px;
 }
 
 .nest {

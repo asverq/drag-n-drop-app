@@ -1,25 +1,34 @@
-const item = document.querySelector('.item')
+const items = document.querySelectorAll('.item')
 const placeholders = document.querySelectorAll('.placeholder')
+let item
 
-item.addEventListener('dragstart', dragStart)
-item.addEventListener('dragend', dragEnd)
+
+for (let item of items) {
+    item.addEventListener('dragstart', dragStart)
+    item.addEventListener('dragend', dragEnd)
+    item.addEventListener('dragover', itemOver)
+}
+
+function dragStart(event) {
+    item = event.target
+    event.target.classList.add('hold')
+    setTimeout(() => event.target.classList.add('hide'), 0)
+}
+
+function dragEnd() {
+    items.forEach(el => el.className = "item")
+}
+
+function itemOver(event) {
+    event.target.classList.add('slidedown')
+}
+
 
 for (let placeholder of placeholders) {
     placeholder.addEventListener('dragover', dragOver)
     placeholder.addEventListener('dragenter', dragEnter)
     placeholder.addEventListener('dragleave', dragLeave)
     placeholder.addEventListener('drop', dragDrop)
-}
-
-function dragStart(event) {
-    console.log(event.target)
-    event.target.classList.add('hold')
-    setTimeout(() => event.target.classList.add('hide'), 0)
-}
-
-function dragEnd(event) {
-    event.target.classList.remove('hold')
-    event.target.classList.remove('hide')
 }
 
 function dragOver(event) {
