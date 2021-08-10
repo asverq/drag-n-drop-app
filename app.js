@@ -2,7 +2,6 @@ const items = document.querySelectorAll('.item')
 const placeholders = document.querySelectorAll('.placeholder')
 let item
 
-
 for (let item of items) {
     item.addEventListener('dragstart', dragStart)
     item.addEventListener('dragend', dragEnd)
@@ -17,13 +16,16 @@ function dragStart(event) {
 
 function dragEnd() {
     items.forEach(el => el.className = "item")
+    items.forEach(el => el.style.marginTop = "0")
 }
 
-function itemOver(event) {
-    event.target.classList.add('slidedown')
+function itemOver(e) {
+    if (e.target.className == "item") {
+        e.target.style.marginTop = "65px"
+    }
 }
 
-
+//Placeholders Events******************************************************
 for (let placeholder of placeholders) {
     placeholder.addEventListener('dragover', dragOver)
     placeholder.addEventListener('dragenter', dragEnter)
@@ -35,15 +37,21 @@ function dragOver(event) {
     event.preventDefault()
 }
 
-function dragEnter(event) {
-    event.target.classList.add('nest')
+function dragEnter(event) {    
+    if ( event.target.className == "placeholder" ) {
+        event.target.classList.add('nest')
+    }    
 }
 
 function dragLeave(event) {
     event.target.classList.remove('nest')
 }
 
-function dragDrop(event) {
+function dragDrop(event) {    
+    console.log(event.target.className);
+    if ( event.target.className == "placeholder nest" ) {
+        event.target.prepend(item)
+    }
     event.target.classList.remove('nest')
-    event.target.append(item)
 }
+//END---------------Placeholders Events*************************************
